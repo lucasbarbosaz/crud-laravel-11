@@ -14,7 +14,12 @@ ID: {{ $user->id }}<br>
 Nome: {{ $user->name }}<br>
 E-mail: {{ $user->email }}<br>
 <a href="{{ route('user.show', $user->id) }}">Exibir Detalhes</a><br>
-<a href="{{ route('user.edit', $user->id) }}">Editar</a>
+<a href="{{ route('user.edit', $user->id) }}">Editar</a><br>
+<form action="{{ route('user.destroy', $user->id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="submit" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Excluir</button>
+</form>
 <hr>
 
 @empty
