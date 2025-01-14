@@ -21,6 +21,8 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('user');
+
         return [
             'name' => [
                 'required',
@@ -31,7 +33,7 @@ class UserRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                'unique:users,email'
+                'unique:users,email,' . ($userId ? $userId->id : null ),
             ],
             'password' => [
                 'required',

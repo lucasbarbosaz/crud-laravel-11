@@ -1,38 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+@extends('users.layouts.app')
+@section('title', 'Criar Usuário')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Usuário</title>
-</head>
+<a href="{{ route('user.index') }}">Listar Usuário</a>
+<h2>Criar usuário</h2>
 
-<body>
-    <a href="{{ route('user.index') }}">Listar Usuário</a>
-    <h2>Criar usuário</h2>
+<form action="{{ route('user.store') }}" method="POST">
+    @csrf
+    @method('POST')
 
-    <form action="{{ route('user.store') }}" method="POST">
-        @csrf
-        @method('POST')
+    @if ($errors->any())
+    @foreach($errors->all() as $error)
+    <p style="color: red">{{ $error }}</p>
+    @endforeach
 
-        @if ($errors->any())
-            @foreach($errors->all() as $error)
-                <p style="color: red">{{ $error }}</p>
-            @endforeach
-        
-        @endif
+    @endif
 
-        <label>Nome:</label>
-        <input type="text" name="name" placeholder="Informe seu nome" value="{{ old('name') }}"/><br><br>
+    <label>Nome:</label>
+    <input type="text" name="name" placeholder="Informe seu nome" value="{{ old('name') }}" /><br><br>
 
-        <label>E-mail:</label>
-        <input type="email" name="email" placeholder="Informe seu e-mail" value="{{ old('email') }}"/><br><br>
+    <label>E-mail:</label>
+    <input type="email" name="email" placeholder="Informe seu e-mail" value="{{ old('email') }}" /><br><br>
 
-        <label>Senha:</label>
-        <input type="password" name="password" placeholder="Informe uma senha segura"><br><br>
+    <label>Senha:</label>
+    <input type="password" name="password" placeholder="Informe uma senha segura"><br><br>
 
-        <button type="submit">Cadastrar</button>
-    </form>
-</body>
-
-</html>
+    <button type="submit">Cadastrar</button>
+</form>
+@endsection
