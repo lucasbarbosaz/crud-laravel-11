@@ -1,31 +1,50 @@
-@extends('users.layouts.app')
-@section('title', 'Editar Usuário')
+@extends('layouts.app')
+
 @section('content')
 
-<a href="{{ route('user.index') }}">Listar Usuários</a>
-<h1>oii</h1>
+    <div class="card mt-4 mb-4 border-light shadow">
 
-<form action="{{ route('user.update', $user->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+        <div class="card-header hstack gap-2">
+            <span>Editar Usuário</span>
 
-    @if ($errors->any())
-    @foreach($errors->all() as $error)
-    <p style="color: red">{{ $error }}</p>
-    @endforeach
+            <span class="ms-auto d-sm-flex flex-row">
 
-    @endif
+                <a href="{{ route('user.index') }}" class="btn btn-info btn-sm me-1">Listar</a>
+                <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-primary btn-sm me-1">Visualizar</a>
+            </span>
+        </div>
 
-    <label>Nome:</label>
-    <input type="text" name="name" placeholder="Informe seu nome" value="{{ $user->name ?? old('name') }}" /><br><br>
+        <div class="card-body">
 
-    <label>E-mail:</label>
-    <input type="email" name="email" placeholder="Informe seu e-mail" value="{{ $user->email ?? old('email') }}" /><br><br>
+            <x-alert />
 
-    <label>Senha:</label>
-    <input type="password" name="password" placeholder="Informe uma senha segura"><br><br>
+            <form action="{{ route('user.update', ['user' => $user->id]) }}" method="POST" class="row g-3">
+                @csrf
+                @method('PUT')
 
-    <button type="submit">Cadastrar</button>
-</form>
+                <div class="col-md-12">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Nome completo"
+                        value="{{ old('name', $user->name) }}">
+                </div>
 
+                <div class="col-md-6">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" name="email" class="form-control" id="email"
+                        placeholder="Melhor e-mail do usuário" value="{{ old('email', $user->email) }}">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" name="password" class="form-control" id="password"
+                        placeholder="Senha com no mínimo 6 caracteres" value="{{ old('password') }}">
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning btn-sm">Salvar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 @endsection
