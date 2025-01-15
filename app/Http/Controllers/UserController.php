@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderByDesc('id')->paginate(10);
+        $users = User::orderByDesc('id')->get();
 
         return view('users.index', compact('users'));
     }
@@ -61,8 +61,23 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $user->delete(); //você pode usar o forceDelete para deletar permanentemente caso esteja usando softDeletes
 
         return redirect()->route('user.index')->with('success', 'Usuário deletado com sucesso!');
+    }
+
+    public function listSoftDeleted()
+    {
+        $users = User::onlyTrashed()->paginate(10);
+
+        return view('users.list-soft-deleted', compact('users'));
+    }
+
+    public function restore($id)
+    {
+        $data = User::withTrashed()->findOrFail($id);
+        $data->restore();
+
+        return redirect()->back()->with('success', 'Usuário restaurado com sucesso!');
     }
 }

@@ -8,6 +8,7 @@
 
             <span class="ms-auto">
                 <a href="{{ route('user.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
+                <a href="{{ route('user.list-soft-deleted') }}" class="btn btn-warning btn-sm">Restaurar Usuários</a>
             </span>
         </div>
 

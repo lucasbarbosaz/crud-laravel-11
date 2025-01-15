@@ -17,3 +17,7 @@ Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edi
 Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
 
 Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+Route::get('/list-soft-deleted-users', [UserController::class, 'listSoftDeleted'])->name('user.list-soft-deleted');
+
+Route::get('/restore-user/{user}', [UserController::class, 'restore'])->name('user.restore');
